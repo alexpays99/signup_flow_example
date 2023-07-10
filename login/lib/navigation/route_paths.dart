@@ -1,0 +1,32 @@
+abstract class RoutePaths {
+  static const myApp = '/';
+  static const splash = 'splash';
+  static const auth = 'auth';
+  static const login = 'login';
+  static const loginByGoogle = 'loginByGoogle';
+  static const phoneOrEmail = 'phoneOrEmail';
+  static const createPassword = 'createPassword';
+  static const createNickname = 'createNickname';
+  static const addFullName = 'addFullName';
+  static const enterBirthday = 'enterBirthday';
+  static const confirmationCode = 'confirmationCode';
+  static const photoScreen = 'photoScreen';
+  static const takePhotoScreen = 'takePhotoScreen';
+  static const photoSelectionScreen = 'photoSelectionScreen';
+  static const imageCropperScreen = 'imageCropperScreen';
+  static const enterCity = 'enterCity';
+  static const addBio = 'addBio';
+  static const termsAndConditions = 'terms_and_conditions';
+  static const passwordRecoveryEmailOrPhone = 'passwordRecoveryEmailOrPhone';
+  static const passwordRecoveryCode = 'passwordRecoveryCode';
+  static const passwordRecoveryPassword = 'passwordRecoveryPassword';
+  static const socialNetwork = 'social';
+  static const socialTabNavigation = 'tabs';
+  static const liked = 'liked';
+  static const search = 'search';
+  static const createPost = 'createPost';
+  static const userPage = 'userProfile';
+  static const postInfo = 'postInfo';
+  static const editProfile = 'editProfile';
+  static const feed = 'feed';
+}

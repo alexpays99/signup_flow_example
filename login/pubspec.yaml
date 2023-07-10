@@ -1,0 +1,112 @@
+name: login
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.5 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  freezed_annotation: ^2.2.0
+  json_annotation: ^4.8.1
+  dartz: ^0.10.1
+  flutter_bloc: ^8.1.1
+  dio: ^4.0.6
+  auto_route: ^5.0.4
+  get_it: ^7.2.0
+  shared_preferences: ^2.0.17
+  easy_localization: ^3.0.1
+  flutter_secure_storage: ^7.0.1
+  flutter_svg: ^2.0.0+1
+  pin_code_fields: ^7.4.0
+  email_validator: ^2.1.17
+  getwidget: ^3.0.1
+  path_provider: ^2.0.12
+  flutter_facebook_auth: ^5.0.7
+  logger: ^1.1.0
+  date_time_format: ^2.0.1
+  firebase_core: ^2.7.0
+  # firebase_messaging: ^10.7.0
+  firebase_messaging: ^14.4.0
+  google_sign_in: ^6.0.1
+  adaptive_action_sheet: ^2.0.2
+  camera: ^0.10.3+2
+  permission_handler: ^10.2.0
+  app_settings: ^4.1.0
+  photo_manager: ^2.6.0
+  # flutter_native_image: ^0.0.6+1
+  image: ^4.0.15
+  cropperx: ^1.1.1
+  pull_to_refresh: ^2.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.1
+  build_runner: ^2.3.3
+  mockito: ^5.3.2
+  freezed: ^2.3.2
+  auto_route_generator: ^5.0.3
+  lint: ^2.0.1
+  json_serializable: ^6.6.1
+  bloc_test: ^9.1.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/translations/
+    - assets/icons/apple_logo.svg
+    - assets/icons/arrow.triangle.2.circlepath.svg
+    - assets/icons/buffer.svg
+    - assets/icons/call_button.svg
+    - assets/icons/camera.circle.svg
+    - assets/icons/checkbox_selected.svg
+    - assets/icons/checkbox_unselected.svg
+    - assets/icons/eye.slash.svg
+    - assets/icons/eye.svg
+    - assets/icons/facebook_logo.svg
+    - assets/icons/google_logo.svg
+    - assets/icons/group_31.svg
+    - assets/icons/heart.fill.svg
+    - assets/icons/heart.svg
+    - assets/icons/home.svg
+    - assets/icons/info.svg
+    - assets/icons/message.svg
+    - assets/icons/multiply.circle.svg
+    - assets/icons/photo.svg
+    - assets/icons/picture.svg
+    - assets/icons/plus.svg
+    - assets/icons/search.svg
+    - assets/icons/send.svg
+    - assets/icons/union.svg
+    - assets/icons/video_button.svg
+    - assets/icons/write.svg
+    - assets/icons/multiply.circle_2.svg
+    - assets/icons/greaterthan.circle.svg
+    - assets/icons/outgoing_call.svg
+    - assets/icons/no_answer.svg
+    - assets/icons/InternGram.svg
+    - assets/icons/logo_google.svg
+    - assets/icons/logo_facebook.svg
+    - assets/icons/login_bro.svg
+    - test/features/auth/data/models/user.json
+    - assets/resources/terms_and_conditions.json
+
+  fonts:
+    - family: SFProText
+      fonts:
+        - asset: fonts/SFProText-Regular.ttf
+        - asset: fonts/SFProText-Medium.ttf
+        - asset: fonts/SFProText-Semibold.ttf
+
+    - family: SFProDisplay
+      fonts:
+        - asset: fonts/SFProDisplay-Regular.ttf
+        - asset: fonts/SFProDisplay-Bold.ttf
+        - asset: fonts/SFProDisplay-Semibold.ttf
