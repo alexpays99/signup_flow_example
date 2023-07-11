@@ -95,7 +95,6 @@ flutter:
     - assets/icons/logo_google.svg
     - assets/icons/logo_facebook.svg
     - assets/icons/login_bro.svg
-    - test/features/auth/data/models/user.json
     - assets/resources/terms_and_conditions.json
 
   fonts:

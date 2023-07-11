@@ -110,9 +110,10 @@ class _EnterBirthdayScreenState extends State<EnterBirthdayScreen> {
                               DateFormat('yyyy-MM-dd', 'en').format(state),
                         );
                         print(credentials.dateOfBirth);
-                        context.router.push(
-                          ConfirmationCodeScreenRoute(userData: credentials),
-                        );
+                        // context.router.push(
+                        //   ConfirmationCodeScreenRoute(userData: credentials),
+                        // );
+                        context.router.replaceAll([ProfilePhotoScreenRoute()]);
                       },
                     ),
                   ),

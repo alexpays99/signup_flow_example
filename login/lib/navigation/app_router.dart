@@ -6,29 +6,18 @@ import 'package:login/core/screens/take_photo/take_photo_screen.dart';
 import 'package:login/features/auth/presentation/add_bio/add_bio_screen.dart';
 import 'package:login/features/auth/presentation/add_full_name/add_full_name_screen.dart';
 import 'package:login/features/auth/presentation/auth_bloc_provider.dart';
-import 'package:login/features/auth/presentation/confirmation_code_screen/confiramtion_code_screen.dart';
 import 'package:login/features/auth/presentation/create_nickname/create_nickname_screen.dart';
 import 'package:login/features/auth/presentation/create_password/create_password_screen.dart';
 import 'package:login/features/auth/presentation/enter_birthday/enter_birthday_screen.dart';
 import 'package:login/features/auth/presentation/enter_city/enter_city_screen.dart';
 import 'package:login/features/auth/presentation/login/login_screen.dart';
 
-import '../features/auth/presentation/confirmation_code_screen/recovery_code_confirmation.dart';
 import '../features/auth/presentation/create_password/password_recovery_screen.dart';
 import '../features/auth/presentation/phone_or_email/phone_or_email_screen.dart';
 import '../features/auth/presentation/phone_or_email/recovery_phone_or_email.dart';
 import '../features/auth/presentation/splash/splash_screen.dart';
 import '../features/auth/presentation/terms_and_conditions/terms_and_conditions_screen.dart';
-import '../features/social_network_functionality/presentation/create_post/create_post_mock.dart';
-import '../features/social_network_functionality/presentation/create_post/create_post_page.dart';
-import '../features/social_network_functionality/presentation/feed/edit_profile/edit_profile_screen.dart';
-import '../features/social_network_functionality/presentation/feed/feed/feed_screen.dart';
-import '../features/social_network_functionality/presentation/feed/post_info/post_info.dart';
 import '../features/social_network_functionality/presentation/feed/user_page/user_page.dart';
-import '../features/social_network_functionality/presentation/liked/liked_mock.dart';
-import '../features/social_network_functionality/presentation/main_navigation/main_navigation_page.dart';
-import '../features/social_network_functionality/presentation/search/search_mock.dart';
-import '../features/social_network_functionality/presentation/social_network_bloc_provider.dart';
 import 'route_paths.dart';
 
 @MaterialAutoRouter(routes: [
@@ -65,8 +54,6 @@ import 'route_paths.dart';
           AdaptiveRoute(
               path: RoutePaths.enterBirthday, page: EnterBirthdayScreen),
           AdaptiveRoute(
-              path: RoutePaths.confirmationCode, page: ConfirmationCodeScreen),
-          AdaptiveRoute(
             path: RoutePaths.photoSelectionScreen,
             page: ProfilePhotoScreen,
           ),
@@ -75,10 +62,6 @@ import 'route_paths.dart';
           AdaptiveRoute(
             path: RoutePaths.passwordRecoveryEmailOrPhone,
             page: PasswordRecoveryPhoneOrEmailScreen,
-          ),
-          AdaptiveRoute(
-            path: RoutePaths.passwordRecoveryCode,
-            page: PasswordRecoveryCodeScreen,
           ),
           AdaptiveRoute(
             path: RoutePaths.passwordRecoveryPassword,
@@ -95,52 +78,56 @@ import 'route_paths.dart';
         page: ImageCroppingScreen,
       ),
       AdaptiveRoute(
-        page: SocialNetworkBlocProvider,
-        path: RoutePaths.socialNetwork,
-        children: [
-          AdaptiveRoute(
-            initial: true,
-            path: RoutePaths.socialTabNavigation,
-            page: MainNavigationPage,
-            children: [
-              AdaptiveRoute(
-                // initial: true,
-                path: RoutePaths.feed,
-                page: FeedScreen,
-              ),
-              AdaptiveRoute(
-                path: RoutePaths.search,
-                page: SearchMock,
-              ),
-              AdaptiveRoute(
-                path: 'create_post_mock',
-                page: CreatePostMock,
-              ),
-              AdaptiveRoute(
-                path: RoutePaths.liked,
-                page: LikedPostMock,
-              ),
-              AdaptiveRoute(
-                initial: true,
-                path: RoutePaths.userPage,
-                page: UserPage,
-              ),
-            ],
-          ),
-          AdaptiveRoute(
-            page: CreatePostPage,
-            path: RoutePaths.createPost,
-          ),
-          AdaptiveRoute(
-            path: RoutePaths.editProfile,
-            page: EditProfileScreen,
-          ),
-          AdaptiveRoute(
-            path: RoutePaths.postInfo,
-            page: PostInfo,
-          ),
-        ],
-      )
+        path: RoutePaths.userPage,
+        page: UserPage,
+      ),
+      // AdaptiveRoute(
+      //   page: SocialNetworkBlocProvider,
+      //   path: RoutePaths.socialNetwork,
+      //   children: [
+      //     AdaptiveRoute(
+      //       initial: true,
+      //       path: RoutePaths.socialTabNavigation,
+      //       page: MainNavigationPage,
+      //       children: [
+      //         AdaptiveRoute(
+      //           // initial: true,
+      //           path: RoutePaths.feed,
+      //           page: FeedScreen,
+      //         ),
+      //         AdaptiveRoute(
+      //           path: RoutePaths.search,
+      //           page: SearchMock,
+      //         ),
+      //         AdaptiveRoute(
+      //           path: 'create_post_mock',
+      //           page: CreatePostMock,
+      //         ),
+      //         AdaptiveRoute(
+      //           path: RoutePaths.liked,
+      //           page: LikedPostMock,
+      //         ),
+      //         AdaptiveRoute(
+      //           initial: true,
+      //           path: RoutePaths.userPage,
+      //           page: UserPage,
+      //         ),
+      //       ],
+      //     ),
+      //     AdaptiveRoute(
+      //       page: CreatePostPage,
+      //       path: RoutePaths.createPost,
+      //     ),
+      //     AdaptiveRoute(
+      //       path: RoutePaths.editProfile,
+      //       page: EditProfileScreen,
+      //     ),
+      //     AdaptiveRoute(
+      //       path: RoutePaths.postInfo,
+      //       page: PostInfo,
+      //     ),
+      //   ],
+      // )
     ],
   )
 ])

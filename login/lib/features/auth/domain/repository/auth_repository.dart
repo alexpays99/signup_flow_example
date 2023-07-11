@@ -27,15 +27,7 @@ abstract class AuthRepository {
 
   Future<Either<AuthFailure, UserTokens>> refreshTokens();
 
-  Future<Either<AuthFailure, Duration>> requestCode(
-      CredentialEntity credentials);
-
-  Future<Either<AuthFailure, bool>> validateCode({
-    required CredentialEntity credentials,
-    required String code,
-  });
-
-  Future<Either<AuthFailure, UserTokens>> loginWIthFacebook();
+  // Future<Either<AuthFailure, UserTokens>> loginWIthFacebook();
 
   Future<Either<AuthFailure, LoginGoogleDataEntity>?> getAllLoginGoogleData();
 

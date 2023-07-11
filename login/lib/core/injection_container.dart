@@ -13,19 +13,14 @@ import 'package:login/features/auth/data/repository/user_repository_impl.dart';
 import 'package:login/features/auth/domain/repository/auth_repository.dart';
 import 'package:login/features/auth/domain/repository/user_repository.dart';
 import 'package:login/features/auth/domain/usecases/login_with_credentials.dart';
-import 'package:login/features/auth/domain/usecases/login_with_facebook.dart';
 import 'package:login/features/auth/domain/usecases/login_with_google_credentials.dart';
-import 'package:login/features/auth/domain/usecases/request_confirmation_code.dart';
 import 'package:login/features/auth/domain/usecases/reset_password.dart';
-import 'package:login/features/auth/domain/usecases/send_confirmation_code.dart';
 import 'package:login/features/auth/domain/usecases/sign_out.dart';
 import 'package:login/features/auth/domain/usecases/sign_up.dart';
 import 'package:login/features/auth/domain/usecases/validate_user_phone.dart';
 import 'package:login/features/auth/sevices/google_auth_service.dart';
-import 'package:login/features/auth/sevices/timeout_service/timout_service.dart';
 import 'package:login/features/auth/sevices/user_storage_service.dart';
 import 'package:login/features/social_network_functionality/data/repository/post_repository_impl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../features/auth/domain/usecases/validate_user_email.dart';
 import '../features/social_network_functionality/domain/usecases/create_post.dart';
 import '../features/social_network_functionality/domain/usecases/get_all_user_posts.dart';
@@ -87,11 +82,6 @@ abstract class InjectionContainer {
       ),
     );
 
-    getIt.registerLazySingleton<TimeoutService>(
-      () => TimeoutService(
-        getIt.get<SharedPreferences>(),
-      ),
-    );
     getIt.registerLazySingleton<FacebookAuth>(() => FacebookAuth.instance);
     getIt.registerLazySingleton<FlutterSecureStorage>(
       () => const FlutterSecureStorage(),
@@ -111,8 +101,6 @@ abstract class InjectionContainer {
       () => AuthRepositoryImpl(
         userStorage: getIt.get<UserStorageService>(),
         authService: getIt.get<AuthService>(),
-        timeoutService: getIt.get<TimeoutService>(),
-        facebookAuth: getIt.get<FacebookAuth>(),
         googleAuthService: getIt.get<GoogleAuthService>(),
       ),
     );
@@ -140,30 +128,11 @@ abstract class InjectionContainer {
         );
       },
     );
-    getIt.registerLazySingleton<RequestConfirmationCode>(
-      () {
-        return RequestConfirmationCode(
-            authRepository: getIt.get<AuthRepository>());
-      },
-    );
-    getIt.registerLazySingleton<SendConfirmationCode>(
-      () {
-        return SendConfirmationCode(
-            authRepository: getIt.get<AuthRepository>());
-      },
-    );
     getIt.registerLazySingleton<SignUp>(
       () {
         return SignUp(
           authRepository: getIt.get<AuthRepository>(),
           userRepository: getIt.get<UserRepository>(),
-        );
-      },
-    );
-    getIt.registerLazySingleton<LoginWithFacebook>(
-      () {
-        return LoginWithFacebook(
-          authRepository: getIt.get<AuthRepository>(),
         );
       },
     );

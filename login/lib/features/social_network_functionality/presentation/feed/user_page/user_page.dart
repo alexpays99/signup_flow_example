@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,15 +9,13 @@ import 'package:login/core/utils/styles/colors.dart';
 import 'package:login/features/feed/domain/entity/post/post_entity.dart';
 import 'package:login/features/social_network_functionality/presentation/feed/user_page/widgets/current_user_info.dart';
 import 'package:login/features/social_network_functionality/presentation/feed/user_page/widgets/posts.dart';
+import 'package:login/navigation/app_router.gr.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart' hide RefreshIndicator;
-
 import '../../../../../core/keys/asset_path.dart';
 import '../../../../../core/widgets/primary_button.dart';
-import '../../../../../navigation/app_router.gr.dart';
 import '../../../../../translations/locale_keys.g.dart';
 import '../../../../auth/domain/entity/button_state_model.dart';
 import '../../../../feed/data/models/current_user_state_mode.dart';
-import '../cubit/feed_cubit.dart';
 import 'cubit/user_page_cubit.dart';
 
 class UserPage extends StatefulWidget {
@@ -128,7 +125,8 @@ class _UserPageState extends State<UserPage> {
                 padding: const EdgeInsets.only(right: 16),
                 child: InkWell(
                   onTap: () {
-                    context.read<FeedCubit>().signout();
+                    context.read<UserPageCubit>().signout();
+                    context.replaceRoute(const AuthBlocProviderRoute());
                   },
                   child: SvgPicture.asset(
                     AssetPath.message,
@@ -187,9 +185,9 @@ class _UserPageState extends State<UserPage> {
                       state: ButtonState.active,
                       text: LocaleKeys.edit.tr(),
                       onPress: () async {
-                        context.router.push(
-                          EditProfileScreenRoute(user: currentUser?.value),
-                        );
+                        // context.router.push(
+                        //   EditProfileScreenRoute(user: currentUser?.value),
+                        // );
                       },
                     ),
                   ),

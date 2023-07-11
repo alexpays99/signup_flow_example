@@ -10,11 +10,9 @@ import 'package:login/features/auth/domain/entity/auth_failure.dart';
 import 'package:login/features/social_network_functionality/data/models/post_creation_model.dart';
 import 'package:login/features/social_network_functionality/data/models/post_model.dart';
 import 'package:login/features/social_network_functionality/domain/entities/general_error.dart';
-
 import '../../features/auth/domain/entity/setup_profile_data_entity.dart';
 import '../../features/auth/domain/entity/user_token.dart';
 import '../../features/auth/sevices/user_storage_service.dart';
-import '../domain/entity/count.dart';
 import '../domain/entity/failure.dart';
 import '../injection_container.dart';
 
@@ -29,46 +27,32 @@ class MainService {
 
   Future<Either<Failure, UserEntity>> currentUser(String accessToken) async {
     try {
-      final response = await dio.get(
-        data.getCurrentUserInfo,
-        options: Options(
-          headers: {
-            "Authorization": "Bearer $accessToken",
-          },
-        ),
-      );
-      Logger().d(response.data);
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final userJson = response.data;
-        final countJson = userJson['_count'] ?? {};
-        final count = Count.fromJson(countJson);
-        final user = UserModel.fromJson(userJson).entity;
-        return Right(
+      Logger().d(accessToken);
+      if (accessToken == 'alsdhfaslkdjfhasdfj') {
+        return const Right(
           UserEntity(
-            id: user.id,
-            email: user.email,
-            phoneNumber: user.phoneNumber,
-            fullName: user.fullName,
-            nickname: user.nickname,
-            dateOfBirth: user.dateOfBirth,
-            photo: user.photo,
-            city: user.city,
-            bio: user.bio,
-            createdAt: user.createdAt,
-            updatedAt: user.updatedAt,
-            count: count,
+            id: '1',
+            email: 'diablo@gmail.com',
+            phoneNumber: '+380932319900',
+            fullName: 'Diablo Taylor',
+            nickname: 'diablo',
+            dateOfBirth: '1982-02-08',
+            photo: '',
+            city: 'Kyiv',
+            bio: 'something',
+            createdAt: '',
           ),
         );
       }
     } catch (e) {
       print(e);
-      return Left(AuthFailure.remote(message: e.toString()) as Failure);
+      return Left(AuthFailure.remote(message: e.toString()));
     }
-    return Left(
-      const AuthFailure.remote(
+    return const Left(
+      AuthFailure.remote(
           message:
               "Something went wrong while making request for getting current "
-              "user info") as Failure,
+              "user info"),
     );
   }
 
@@ -109,8 +93,7 @@ class MainService {
           );
           print(response.data);
           if (response.statusCode == 401 || response.statusCode == 500) {
-            return Left(
-                AuthFailure.remote(message: response.toString()) as Failure);
+            return Left(AuthFailure.remote(message: response.toString()));
           }
           return Right(
             UserModel.fromJson(response.data),
@@ -118,10 +101,10 @@ class MainService {
         }
       } catch (e) {
         print(e);
-        return Left(AuthFailure.remote(message: e.toString()) as Failure);
+        return Left(AuthFailure.remote(message: e.toString()));
       }
     }
-    return Left(const AuthFailure.remote(message: 'Error') as Failure);
+    return const Left(AuthFailure.remote(message: 'Error'));
   }
 
   Future<Either<Failure, List<PostModel>>?> getAllUserPosts(
@@ -153,12 +136,11 @@ class MainService {
 
           return Right(posts);
         }
-        return Left(
-            AuthFailure.remote(message: response.toString()) as Failure);
+        return Left(AuthFailure.remote(message: response.toString()));
       }
     } catch (e) {
       print(e);
-      return Left(AuthFailure.remote(message: e.toString()) as Failure);
+      return Left(AuthFailure.remote(message: e.toString()));
     }
     return null;
   }
@@ -182,8 +164,7 @@ class MainService {
         );
         print(response.data);
         if (response.statusCode == 401 || response.statusCode == 500) {
-          return Left(
-              AuthFailure.remote(message: response.toString()) as Failure);
+          return Left(AuthFailure.remote(message: response.toString()));
         } else {
           return Right(
             SetupProfileDataEntity(
@@ -198,11 +179,10 @@ class MainService {
       }
     } catch (e) {
       print(e);
-      return Left(AuthFailure.remote(message: e.toString()) as Failure);
+      return Left(AuthFailure.remote(message: e.toString()));
     }
-    return Left(
-        const AuthFailure.remote(message: 'Failure on deleting user avatar')
-            as Failure);
+    return const Left(
+        AuthFailure.remote(message: 'Failure on deleting user avatar'));
   }
 
   Future<Either<Failure, bool>> createPost(
@@ -225,12 +205,10 @@ class MainService {
         return const Right(true);
       } else {
         print(result.statusCode);
-        return Left(
-            const GeneralFailure(message: 'Unexpected status code') as Failure);
+        return const Left(GeneralFailure(message: 'Unexpected status code'));
       }
     } catch (e) {
-      return Left(
-          const GeneralFailure(message: 'Something went wrong') as Failure);
+      return const Left(GeneralFailure(message: 'Something went wrong'));
     }
   }
 }

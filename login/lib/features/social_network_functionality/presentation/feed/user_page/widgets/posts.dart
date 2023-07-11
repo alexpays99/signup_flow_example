@@ -1,8 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login/core/domain/entity/user.dart';
-import 'package:login/navigation/app_router.gr.dart';
 
 import '../../../../../../core/utils/styles/colors.dart';
 import '../../../../../feed/domain/entity/post/post_entity.dart';
@@ -52,9 +50,7 @@ class PostItem extends StatelessWidget {
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: () {
-                context.router.push(PostInfoRoute(user: user, post: post));
-              },
+              onTap: () {},
             ),
           ),
         ),

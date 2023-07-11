@@ -12,7 +12,6 @@ import 'package:login/features/auth/domain/entity/user_token.dart';
 import 'package:login/features/auth/domain/repository/auth_repository.dart';
 import 'package:login/features/auth/sevices/auth_service.dart';
 import 'package:login/features/auth/sevices/google_auth_service.dart';
-import 'package:login/features/auth/sevices/timeout_service/timout_service.dart';
 import 'package:login/features/auth/sevices/user_storage_service.dart';
 import 'package:logger/logger.dart';
 
@@ -22,8 +21,6 @@ class AuthRepositoryImpl extends AuthRepository {
   final UserStorageService userStorage;
   final AuthService authService;
   final GoogleAuthService googleAuthService;
-  final TimeoutService timeoutService;
-  final FacebookAuth facebookAuth;
 
   final StreamController<AuthRepositoryState> _stateStreamController =
       StreamController();
@@ -32,8 +29,6 @@ class AuthRepositoryImpl extends AuthRepository {
     required this.userStorage,
     required this.authService,
     required this.googleAuthService,
-    required this.timeoutService,
-    required this.facebookAuth,
   }) {
     _stateStreamController.sink.add(state);
     userStorage.haveTokens().then((value) {
@@ -50,56 +45,6 @@ class AuthRepositoryImpl extends AuthRepository {
         _updateState(AuthRepositoryState.signedOut);
       }
     });
-  }
-
-  @override
-  Future<Either<AuthFailure, UserTokens>> loginWIthFacebook() async {
-    try {
-      final LoginResult result = await facebookAuth.login(
-        permissions: [
-          'email',
-          'public_profile',
-          'user_birthday',
-        ],
-      );
-      // by default we request the email and the public profile
-      // or FacebookAuth.i.login()
-      if (result.status == LoginStatus.success) {
-        final facebookData = await facebookAuth.getUserData(
-          fields: 'email, id, name, first_name, '
-              'last_name, picture.type(large), birthday',
-        );
-
-        ///We need to check if user have an email otherwise backend will not
-        ///accept this data
-        final tokenResults = await authService.loginWIthFacebook(
-          FacebookDataModel.fromFacebookJson(facebookData),
-        );
-        return tokenResults.fold(
-          (l) {
-            return Left(l);
-          },
-          (r) async {
-            final saveResult = await userStorage.saveTokens(r.entity);
-            return saveResult.fold(
-              (l) => Left(AuthFailure.local(message: l.message)),
-              (success) {
-                _updateState(AuthRepositoryState.signedIn);
-                return Right(r.entity);
-              },
-            );
-          },
-        );
-      } else {
-        return const Left(
-            AuthFailure.local(message: 'Error during login with Facebook'));
-      }
-    } on ArgumentError catch (_) {
-      return const Left(
-          AuthFailure.facebookNoEmail(message: 'Exception caught'));
-    } catch (e) {
-      return const Left(AuthFailure.local(message: 'Exception caught'));
-    }
   }
 
   @override
@@ -169,48 +114,6 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Stream<AuthRepositoryState> getStateStream() {
     return _stateStreamController.stream;
-  }
-
-  @override
-  Future<Either<AuthFailure, Duration>> requestCode(
-      CredentialEntity credentials) async {
-    try {
-      final duration = await timeoutService.getTimeout();
-      if (duration <= Duration.zero) {
-        final result = await authService
-            .requestCode(CredentialsModel.fromEntity(credentials));
-        return result.fold(
-          (l) => Left(l),
-          (r) async {
-            final newDuration = await timeoutService.countRequest();
-            return Right(newDuration);
-          },
-        );
-      } else {
-        return Right(duration);
-      }
-    } catch (e) {
-      return const Left(AuthFailure.local(message: 'Something wrong'));
-    }
-  }
-
-  @override
-  Future<Either<AuthFailure, bool>> validateCode({
-    required CredentialEntity credentials,
-    required String code,
-  }) async {
-    try {
-      final result = await authService.validateCode(
-          CredentialsModel.fromEntity(credentials), code);
-      return result.fold(
-        (l) => Left(l),
-        (r) {
-          return const Right(true);
-        },
-      );
-    } catch (e) {
-      return const Left(AuthFailure.local(message: 'Something wrong'));
-    }
   }
 
   @override

@@ -17,7 +17,7 @@ class SplashScreen extends StatelessWidget {
       listener: (context, state) {
         state.mapOrNull(
           loggedIn: (loggedState) {
-            context.router.replace(const SocialNetworkBlocProviderRoute());
+            context.router.replace(const UserPageRoute());
           },
           loggedOut: (unauthorisedState) {
             context.router.replace(const AuthBlocProviderRoute());

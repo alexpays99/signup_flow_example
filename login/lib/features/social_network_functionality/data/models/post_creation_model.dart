@@ -2,8 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:login/features/feed/domain/entity/post/post_creation_entity.dart';
 import 'package:login/features/social_network_functionality/data/models/image_model.dart';
-import 'package:login/features/feed/domain/entity/post/post_creation_entity.dart';
-import 'package:login/features/social_network_functionality/data/models/image_model.dart';
 
 part 'post_creation_model.freezed.dart';
 

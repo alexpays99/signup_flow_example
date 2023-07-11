@@ -14,7 +14,6 @@ import '../../../../core/widgets/segment_picker.dart';
 import '../../../../navigation/app_router.gr.dart';
 import '../../../../translations/locale_keys.g.dart';
 import '../../domain/entity/button_state_model.dart';
-import '../../domain/entity/sign_up_data_entity.dart';
 
 class PasswordRecoveryPhoneOrEmailScreen extends StatefulWidget {
   const PasswordRecoveryPhoneOrEmailScreen({super.key});
@@ -55,16 +54,7 @@ class _PasswordRecoveryPhoneOrEmailScreenState
             return cur.isValidated;
           },
           listener: (context, state) {
-            final dataEntity = SignUpDataEntity(
-              email: state.currentTab == Tabs.email ? state.email.value : null,
-              phoneNumber:
-                  state.currentTab == Tabs.phone ? state.phone.value : null,
-            );
-            context.router.push(
-              PasswordRecoveryCodeScreenRoute(
-                signUpDataEntity: dataEntity,
-              ),
-            );
+            context.router.replace(const LoginScreenRoute());
           },
           builder: (context, state) {
             return Column(

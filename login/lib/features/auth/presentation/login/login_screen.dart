@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, state) {
         state.mapOrNull(
           loggedIn: (loggedIn) {
-            context.router.replaceAll(const [SocialNetworkBlocProviderRoute()]);
+            context.router.replaceAll(const [UserPageRoute()]);
           },
         );
       },
@@ -187,73 +187,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         const LoginEvent.loginButtonPressed(),
                       );
                     },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 42, bottom: 42),
-                    child: Text(
-                      LocaleKeys.or.tr(),
-                      style: style.textTheme.displaySmall?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: CustomPalette.black65,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: SvgPicture.asset(
-                            AssetPath.logoFacebook,
-                            width: 16,
-                            height: 16,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            bloc.add(
-                              const LoginEvent.loginWithFacebookPressed(),
-                            );
-                          },
-                          child: Text(
-                            LocaleKeys.loginWithFacebook.tr(),
-                            style: style.textTheme.displaySmall?.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: CustomPalette.loginblue,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: SvgPicture.asset(
-                          AssetPath.logoGoogle,
-                          width: 16,
-                          height: 16,
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          bloc.add(
-                            const LoginEvent.loginWithGooglePressed(),
-                          );
-                        },
-                        child: Text(
-                          LocaleKeys.loginWithGoogle.tr(),
-                          style: style.textTheme.displaySmall?.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: CustomPalette.loginblue,
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                   const Spacer(flex: 1),
                   Padding(

@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:login/core/domain/usecase/usecase.dart';
 import 'package:login/features/auth/domain/entity/form_validation_model.dart';
 import 'package:login/translations/locale_keys.g.dart';
 
@@ -10,7 +9,6 @@ import '../../../domain/entity/button_state_model.dart';
 import '../../../domain/entity/credentials_entity.dart';
 import '../../../domain/entity/field_verifiable_model.dart';
 import '../../../domain/usecases/login_with_credentials.dart';
-import '../../../domain/usecases/login_with_facebook.dart';
 import '../../../domain/usecases/login_with_google_credentials.dart';
 
 part 'login_event.dart';
@@ -21,11 +19,9 @@ part 'login_bloc.freezed.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginWithCredentials loginWithCredentials;
-  final LoginWithFacebook loginWithFacebook;
 
   LoginBloc({
     required this.loginWithCredentials,
-    required this.loginWithFacebook,
   }) : super(
           LoginState(
             dialogueError: null,
@@ -142,38 +138,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(
           state.copyWith(
             dialogueError: null,
-          ),
-        );
-      },
-      loginWithFacebookPressed: () async {
-        emit(
-          state.copyWith(
-            loginButton: ButtonState.loading,
-          ),
-        );
-        final result = await loginWithFacebook(NoParams());
-        result.fold(
-          (l) {
-            l.whenOrNull(
-              facebookNoEmail: (facebookError) {
-                emit(
-                  state.copyWith(
-                    dialogueError: DialogueErrorEntity(
-                      title: LocaleKeys.facebookNoEmailErrorTitle.tr(),
-                      message: LocaleKeys.facebookNoEmailErrorMessage.tr(),
-                    ),
-                    loginButton: ButtonState.active,
-                  ),
-                );
-              },
-            );
-          },
-          (r) {},
-        );
-        emit(
-          state.copyWith(
-            dialogueError: null,
-            loginButton: ButtonState.active,
           ),
         );
       },

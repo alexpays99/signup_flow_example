@@ -28,27 +28,27 @@ class UserStorageService {
         return Right(
             UserTokens(accessToken: accessToken, refreshToken: refreshToken));
       } else {
-        return Left(const AuthFailure.local(message: 'Some tokens are missing')
-            as Failure);
+        return Left(
+            const AuthFailure.local(message: 'Some tokens are missing'));
       }
     } catch (e) {
       return Left(
-          const AuthFailure.local(message: 'Failed to read from storage')
-              as Failure);
+          const AuthFailure.local(message: 'Failed to read from storage'));
     }
   }
 
   Future<Either<Failure, bool>> saveTokens(UserTokens tokens) async {
     try {
+      // Here should be real access and refresh tokens from alive back.
       await storage.write(
-          key: LocalStorageKeys.accessTokenKey, value: tokens.accessToken);
+          key: LocalStorageKeys.accessTokenKey, value: 'alsdhfaslkdjfhasdfj');
       await storage.write(
-          key: LocalStorageKeys.refreshTokenKey, value: tokens.refreshToken);
+          key: LocalStorageKeys.refreshTokenKey,
+          value: 'asdfl;sadhfasdgfkjasdfhasdf');
       return const Right(true);
     } catch (e) {
-      return Left(
-          const AuthFailure.local(message: 'Exception while writing tokens')
-              as Failure);
+      return const Left(
+          AuthFailure.local(message: 'Exception while writing tokens'));
     }
   }
 
@@ -57,8 +57,7 @@ class UserStorageService {
       await storage.deleteAll();
       return const Right(true);
     } catch (e) {
-      return Left(const AuthFailure.local(message: 'Exception while deleting')
-          as Failure);
+      return const Left(AuthFailure.local(message: 'Exception while deleting'));
     }
   }
 }

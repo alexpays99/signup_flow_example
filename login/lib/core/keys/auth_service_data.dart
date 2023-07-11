@@ -1,6 +1,6 @@
 class AuthServiceData {
   static const String baseUrl =
-      "https://2l8kei2uz4.execute-api.eu-west-3.amazonaws.com/";
+      "https:amazonaws.com/"; // here should be real base url example
   String get signUpEndpoint => '${baseUrl}signUp';
   String get signInCredentialsEndpoint => '${baseUrl}signIn';
   String get validateAccessTokenEndpoint => '${baseUrl}validateToken';

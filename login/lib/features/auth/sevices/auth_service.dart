@@ -50,48 +50,49 @@ class AuthService {
 
   Future<Either<AuthFailure, UserTokensModel>> loginWithCredentials(
       CredentialsModel credentialsModel) async {
-    try {
-      print(credentialsModel.toJson());
-      final response = await dio.post(
-        authServiceData.signInCredentialsEndpoint,
-        data: credentialsModel.toJson(),
-      );
-      if (response.statusCode == 200) {
-        try {
-          final userTokensModel = UserTokensModel.fromJson(response.data);
-          return Right(userTokensModel);
-        } catch (e) {
-          return const Left(
-              AuthFailure.local(message: 'Error while parsing data'));
-        }
-      } else {
-        return Left(AuthFailure.remote(
-          message: 'Invalid response',
-          code: response.statusCode,
-        ));
+    print(credentialsModel.toJson());
+    final response = await dio.post(
+      authServiceData.signInCredentialsEndpoint,
+      data: credentialsModel.toJson(),
+    );
+
+    // Here should be implemented logic for status conde checking. Now its hardcoded
+    if (credentialsModel.email == 'diablo@gmail.com' &&
+        credentialsModel.password == '12345678Rr*') {
+      try {
+        // Here we should get response.data from real backend. Now its hardcoded
+        final userTokensModel = UserTokensModel.fromJson({
+          'accessToken': 'alsdhfaslkdjfhasdfj',
+          'refreshToken': 'asdfl;sadhfasdgfkjasdfhasdf',
+        });
+        return Right(userTokensModel);
+      } catch (e) {
+        return const Left(
+            AuthFailure.local(message: 'Error while parsing data'));
       }
-    } on DioError catch (e) {
-      return Left(AuthFailure.local(message: e.message));
-    } catch (e) {
-      return const Left(AuthFailure.local(message: 'Something Wrong'));
+    } else {
+      return Left(AuthFailure.remote(
+        message: 'Invalid response',
+        code: response.statusCode,
+      ));
     }
   }
 
   Future<Either<AuthFailure, bool>> validateAccessToken(
       String accessToken) async {
-    try {
-      final response = await dio.post(
-        authServiceData.validateAccessTokenEndpoint,
-        data: {"token": accessToken},
-      );
-      if (response.statusCode == 200) {
-        return const Right(true);
-      } else {
-        return Left(_responseToFailure(response));
-      }
-    } catch (e) {
-      return const Left(AuthFailure.local(message: 'RequestError'));
-    }
+    // Here should be logic for tokens validation from backend side.
+    // Now it always returns true
+    return const Right(true);
+    // try {
+    //   final response = await dio.post(
+    //     authServiceData.validateAccessTokenEndpoint,
+    //     data: {"token": accessToken},
+    //   );
+    //   if (response.statusCode == 200) {
+    //     return const Right(true);
+    //   } else {
+    //     return Left(_responseToFailure(response));
+    //   }
   }
 
   Future<Either<AuthFailure, UserTokensModel>> refreshTokens(
@@ -122,28 +123,6 @@ class AuthService {
       if (response.statusCode == 201) {
         return const Right(true);
       } else {
-        return Left(_responseToFailure(response));
-      }
-    } catch (e) {
-      return const Left(AuthFailure.local(message: 'RequestError'));
-    }
-  }
-
-  Future<Either<AuthFailure, bool>> validateCode(
-      CredentialsModel credentialsModel, String code) async {
-    try {
-      final response = await dio.post(
-        authServiceData.confirmCode,
-        data: {
-          "email": credentialsModel.email,
-          "phoneNumber": credentialsModel.phoneNumber,
-          "code": code,
-        },
-      );
-      if (response.statusCode == 200) {
-        return const Right(true);
-      } else {
-        ///TODO maybe we should return false in some cases?
         return Left(_responseToFailure(response));
       }
     } catch (e) {

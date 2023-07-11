@@ -5,7 +5,7 @@ import 'package:login/core/screens/camera_cubit/camera_cubit.dart';
 import 'package:login/core/screens/gallery_picker/cubit/gallery_cubit.dart';
 import 'package:login/features/auth/domain/repository/auth_repository.dart';
 import 'package:login/features/auth/domain/repository/user_repository.dart';
-import '../features/social_network_functionality/presentation/main_navigation/user/user_cubit.dart';
+import 'package:login/features/social_network_functionality/presentation/feed/user_page/cubit/user_page_cubit.dart';
 import 'injection_container.dart';
 
 import '../features/auth/presentation/bloc/auth_bloc.dart';
@@ -30,10 +30,8 @@ class GlobalBlocProvider extends StatelessWidget implements AutoRouteWrapper {
         BlocProvider<GalleryCubit>(
           create: (BuildContext context) => GalleryCubit(),
         ),
-        BlocProvider<UserCubit>(
-          create: (BuildContext context) => UserCubit(
-            userRepository: getIt.get<UserRepository>(),
-          ),
+        BlocProvider<UserPageCubit>(
+          create: (BuildContext context) => UserPageCubit(),
         ),
       ],
       child: this,

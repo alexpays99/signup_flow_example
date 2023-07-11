@@ -1,26 +1,25 @@
 import 'dart:io' show Platform;
 
 class GoogleAuthServiceData {
-  static const String _googleId =
-      '690202184368-jo79e9jf775pp5vk714gto61nfhujoak.apps.googleusercontent.com';
+  static const String _googleId = ''; // here should be readl google id
   String get googleId => _googleId;
 
-  static const String _iosApiKey = 'AIzaSyCOcWpg6JZMsapmqKlUr3GondMd27rztN4';
+  static const String _iosApiKey = ''; // here should be readl ios api key
   String get iosApiKey => _iosApiKey;
 
   static const String _androidApiKey =
-      'AIzaSyBLcSabnKNpScMLfPp219Zvwa-DAmsm7Jo';
+      ''; // here should be readl android api key
   String get androidApiKey => _androidApiKey;
 
-  static const String googleApisBaseUrl = "https://www.googleapis.com/";
-  static const String peopleGoogleApisBaseUrl =
-      "https://people.googleapis.com/";
+  static const String googleApisBaseUrl = "";
+  static const String peopleGoogleApisBaseUrl = "";
 
   String get tokeninfo =>
-      '${googleApisBaseUrl}oauth2/v3/tokeninfo?access_token';
+      googleApisBaseUrl; // here should be readl endpoint for getting info by access token
   String get peopleInfo =>
       '${peopleGoogleApisBaseUrl}v1/people/me?key=${Platform.isIOS ? iosApiKey : androidApiKey}&personFields=names,birthdays';
 
+  // defines scopes of google auth data erquest
   List<String> scopes = [
     'email',
     '${googleApisBaseUrl}auth/userinfo.profile',

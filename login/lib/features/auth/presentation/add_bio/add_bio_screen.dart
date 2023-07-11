@@ -69,7 +69,7 @@ class AddBioScreen extends StatelessWidget {
           bloc: cubit,
           listener: (context, state) {
             if (state.isValidated) {
-              context.router.replace(const SocialNetworkBlocProviderRoute());
+              context.router.replace(const UserPageRoute());
             }
           },
           builder: (context, state) {
